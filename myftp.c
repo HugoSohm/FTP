@@ -12,15 +12,13 @@
 #include <unistd.h>
 #include <stdio.h>
 
-int myftp(int port, char *path)
+int myftp(int port)
 {
-    (char *)path;
     struct sockaddr_in serverSock;
     struct sockaddr_in clientSock;
     int clientSockSize = sizeof(clientSock);
-
-    int fd;
     int clientfd;
+    int fd;
 
     fd = socket(AF_INET, SOCK_STREAM, 0);
 
@@ -31,7 +29,6 @@ int myftp(int port, char *path)
     }
 
     serverSock.sin_port = htons(port);
-    serverSock.sin_addr.s_addr = 0;
     serverSock.sin_addr.s_addr = htonl(INADDR_ANY);
     serverSock.sin_family = AF_INET;
 
@@ -57,12 +54,11 @@ int main(int argc, char **argv)
 {
     if (argc == 2 && strcmp(argv[1], "-help") == 0)
         help();
-    else if (argc == 3)
-        myftp(atoi(argv[1]), argv[2]);
+    else if (argc == 2)
+        myftp(atoi(argv[1]));
     else {
         printf("Invalid arguments, there is %d arguments\n", argc);
         return (84);
     }
-
     return (0);
 }
