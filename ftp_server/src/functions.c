@@ -7,6 +7,25 @@
 
 #include "../includes/server.h"
 
+void closeServer(client_t client, server_t server)
+{
+    write(client.clientfd, MSG_221, 13);
+    close(server.serverfd);
+    exit(0);
+}
+
+char *upCase(char *str)
+{
+    int i = 0;
+
+    while (str[i]) {
+        if (str[i] >= 'a' && str[i] <= 'z')
+            str[i] = str[i] - 32;
+        i++;
+    }
+    return (str);
+}
+
 void epur_str(char *str)
 {
     int i = 0;

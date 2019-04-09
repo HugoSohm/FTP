@@ -7,8 +7,10 @@
 
 NAME		=	myftp
 
-SRCS    	=	./ftp_server/src/server.c	\
-				./ftp_server/src/errors.c	\
+SRCS    	=	./ftp_server/src/server.c		\
+				./ftp_server/src/errors.c		\
+				./ftp_server/src/functions.c	\
+				./ftp_server/src/init.c			\
 				./ftp_server/src/main.c
 
 OBJS		=	$(SRCS:.c=.o)
@@ -27,8 +29,8 @@ CFLAGS		=
 	@printf " \033[34m[Compilation]\033[39m %s\n" $<
 
 all	:	$(OBJS)
-		@$(CC) $(OBJS) -o $(NAME)
-		@printf "\n \033[33m[Message]\033[39m Server compilation done\n"
+	@$(CC) $(OBJS) -o $(NAME)
+	@printf "\n \033[33m[Message]\033[39m Server compilation done\n"
 
 clean	:
 	@$(RM) *~ $(OBJS)
