@@ -5,21 +5,53 @@
 ## Made by Hugo SOHM
 ##
 
-NAME=		myftp
+SERVER_NAME		=	serveur
 
-SRC=		myftp.c
+SERVER_SRCS    	=	./ftp_server/src/server.c	\
+					./ftp_server/src/errors.c	\
+					./ftp_server/src/main.c
 
-OBJ=		$(SRC:.c=.o)
+SERVER_OBJS		=	$(SERVER_SRCS:.c=.o)
+SERVER_INCL		=	-I./ftp_server/includes
 
-CFLAGS+=	-W -Wall -Wextra
+####################################################
 
-all:
-			gcc -o $(NAME) $(SRC)
+CLIENT_NAME		=	client
 
-clean:
-			rm -f $(OBJ)
+CLIENT_SRCS		=	./ftp_client/src/client.c	\
+					./ftp_client/src/errors.c	\
+					./ftp_client/src/main.c
 
-fclean:		clean
-			rm -f $(NAME)
+CLIENT_OBJS		=	$(CLIENT_SRCS:.c=.o)
+CLIENT_INCL		=	-I./ftp_client/includes
 
-re:			fclean all
+####################################################
+
+CC			=	gcc
+RM			=	rm -f
+CFLAGS		=
+
+#####################################################
+
+.c.o	:
+	@$(CC) $(CFLAGS) $(SERVER_INCL) $(CLIENT_INCL) -c $< -o $@
+	@printf " \033[34m[Compilation]\033[39m %s\n" $<
+
+all	:	$(SERVER_OBJS) $(CLIENT_OBJS)
+		@$(CC) $(SERVER_OBJS) -o $(SERVER_NAME)
+		@printf "\n \033[33m[Message]\033[39m Server compilation done\n"
+		@$(CC) $(CLIENT_OBJS) -o $(CLIENT_NAME)
+		@printf "\n \033[33m[Message]\033[39m Client compilation done\n"
+
+clean	:
+	@$(RM) *~ $(SERVER_OBJS)
+	@printf " \033[31m[Delete] \033[39m%s\n" $(SERVER_OBJS)
+	@$(RM) *~ $(CLIENT_OBJS)
+	@printf " \033[31m[Delete] \033[39m%s\n" $(CLIENT_OBJS)
+
+fclean	:	clean
+	@$(RM) $(SERVER_NAME)
+	@$(RM) $(CLIENT_NAME)
+	@printf "\n \033[31m[Delete] \033[39m%s\n\n" $(NAME)
+
+re	:	fclean all
