@@ -19,12 +19,13 @@
 
 #define BUFSIZE 1024
 
-#define MSG_331 "331 Please specify password.\r\n"
-#define MSG_530 "530 This FTP server is anonymous only.\r\nLogin failed, please enter a correct login\r\n"
+#define MSG_331 "331 Please specify password.\n"
+#define MSG_530 "530 This FTP server is anonymous only.\nLogin failed, please enter a correct login\n"
+#define MSG_220 "220 Hello\n"
 
 int main(int argc, char **argv);
 void epur_str(char *str);
 void error(char *msg);
-int server(int port);
+int server(int port, char *path);
 
 #endif

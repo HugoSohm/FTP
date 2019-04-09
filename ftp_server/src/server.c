@@ -7,7 +7,7 @@
 
 #include "../includes/server.h"
 
-int server(int port)
+int server(int port, char *path)
 {
     fd_set readfds;
     struct sockaddr_in serverSock;
@@ -22,7 +22,7 @@ int server(int port)
 
     serverfd = socket(AF_INET, SOCK_STREAM, 0);
 
-    if (serverfd < 0) 
+    if (serverfd < 0)
         perror("ERROR opening socket");
 
     setsockopt(serverfd, SOL_SOCKET, SO_REUSEADDR, (const void *)&optval , sizeof(int));
