@@ -45,9 +45,8 @@ int server(int port, char *path)
         if (select(serverfd + 1, &readfds, 0, 0, 0) == -1)
             perror("Error in select");
 
-        if (FD_ISSET(0, &readfds)) {
+        if (FD_ISSET(0, &readfds))
             printf("Writing in server\n");
-        }
 
         if (FD_ISSET(serverfd, &readfds)) {
             clientfd = accept(serverfd, (struct sockaddr *)&clientSock, (socklen_t*)&clientSockSize);
@@ -55,20 +54,21 @@ int server(int port, char *path)
             if (inet_ntop(AF_INET, &clientSock.sin_addr.s_addr, infoConnect,sizeof(infoConnect)) != NULL)
                 printf("Connection from %s:%d\n", infoConnect, ntohs(clientSock.sin_port));
             write(clientfd, "220 Hello\n", 10);
-            
+
             if (clientfd == -1)
                 perror("Error on accept");
             
-            bzero(buffer, BUFSIZE);
-            memset(buffer, 0, BUFSIZE);
-            read(clientfd, buffer, BUFSIZE);
-            buffer[strlen(buffer)-2] = '\0';
+            while (42) {
+                bzero(buffer, BUFSIZE);
+                memset(buffer, 0, BUFSIZE);
+                read(clientfd, buffer, BUFSIZE);
+                buffer[strlen(buffer)-2] = '\0';
 
-            if (strcmp(buffer, "anonymous") == 0) {
-                write(clientfd, MSG_331, 29);
-            } else {
+                if (strcmp(buffer, "USER anonymous") == 0)
+                    break;
                 write(clientfd, MSG_530, 82);
             }
+            write(clientfd, MSG_331, 29);
         }
     }
     printf("Terminating server.\n");
