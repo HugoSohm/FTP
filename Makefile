@@ -7,14 +7,18 @@
 
 NAME		=	myftp
 
-SRCS    	=	./ftp_server/src/server.c		\
-				./ftp_server/src/errors.c		\
-				./ftp_server/src/functions.c	\
-				./ftp_server/src/init.c			\
-				./ftp_server/src/main.c
+SRCS    	=	src/server.c		\
+				src/errors.c		\
+				src/functions.c		\
+				src/init.c			\
+				src/check.c			\
+				src/commands.c		\
+				src/commands2.c		\
+				src/commands3.c		\
+				src/main.c
 
 OBJS		=	$(SRCS:.c=.o)
-INCL		=	-I./ftp_server/includes
+INCL		=	-I./includes
 
 ####################################################
 

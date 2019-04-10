@@ -27,5 +27,9 @@ client_t initClient(int port, char *path)
     client.clientSockSize = sizeof(client.clientSock);
     client.clientSockSize = sizeof(client.clientSock);
 
+    client.mode = 1;
+    client.is_root = false;
+    client.newPath = "./";
+
     return (client);
 }

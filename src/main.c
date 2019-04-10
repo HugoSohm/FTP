@@ -9,8 +9,7 @@
 
 void help(void)
 {
-    printf("USAGE: ./server port\n");
-    printf("\tport\tis the port number on which the server socket listens\n");
+    printf(USAGE);
 }
 
 int main(int argc, char **argv)
