@@ -24,7 +24,7 @@ void checkCommands(client_t client, server_t server)
             my_list(client);
         else if (strncmp(upCase(server.buffer), "PORT", 4) == 0)
             my_port(client);
-        else if (strncmp(upCase(server.buffer), "PWD", 4) == 0)
+        else if (strncmp(upCase(server.buffer), "PWD", 3) == 0)
             my_pwd(client);
         else if (strncmp(upCase(server.buffer), "NOOP", 4) == 0)
             my_noop(client);
@@ -34,10 +34,8 @@ void checkCommands(client_t client, server_t server)
             my_help(client);
         else if (strncmp(server.buffer, "QUIT", 4) == 0)
             closeServer(client, server);
-        else {
-            my_write(client.clientfd, server.buffer);
+        else
             unknownCommand(client);
-        }
     }
 }
 

@@ -29,7 +29,7 @@ void my_pwd(client_t client)
         write(client.clientfd, &c, 1);
         my_write(client.clientfd, path_pwd);
         write(client.clientfd, &c, 1);
-        my_write(client.clientfd, " created.\n");
+        my_write(client.clientfd, "\n");
     } else
         my_write(client.clientfd, MSG_550);
 }
