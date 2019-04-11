@@ -5,8 +5,8 @@
 ** myftp.h
 */
 
-#ifndef SERVER_H
-#define SERVER_H
+#ifndef MYFTP_H
+#define MYFTP_H
 
 #include <sys/socket.h>
 #include <sys/select.h>

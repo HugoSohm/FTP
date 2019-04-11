@@ -5,7 +5,7 @@
 ** server.c
 */
 
-#include "../includes/server.h"
+#include "../includes/myftp.h"
 
 int myftp(int port, char *path)
 {

@@ -5,7 +5,7 @@
 ** functions.c
 */
 
-#include "../includes/server.h"
+#include "../includes/myftp.h"
 
 void my_write(int fd, char *str)
 {

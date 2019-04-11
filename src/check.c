@@ -5,7 +5,7 @@
 ** check.c
 */
 
-#include "../includes/server.h"
+#include "../includes/myftp.h"
 
 void checkCommands(client_t client, server_t server)
 {

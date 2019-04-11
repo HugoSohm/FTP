@@ -5,7 +5,7 @@
 ** commands2.c
 */
 
-#include "../includes/server.h"
+#include "../includes/myftp.h"
 
 void my_noop(client_t client)
 {

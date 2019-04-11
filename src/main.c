@@ -5,7 +5,7 @@
 ** main.c
 */
 
-#include "../includes/server.h"
+#include "../includes/myftp.h"
 
 void help(void)
 {

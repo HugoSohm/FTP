@@ -5,7 +5,7 @@
 ** init.c
 */
 
-#include "../includes/server.h"
+#include "../includes/myftp.h"
 
 server_t initServer(int port, char *path)
 {

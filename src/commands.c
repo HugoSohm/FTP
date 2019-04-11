@@ -5,7 +5,7 @@
 ** commands.c
 */
 
-#include "../includes/server.h"
+#include "../includes/myftp.h"
 
 void my_pasv(client_t client)
 {

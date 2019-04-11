@@ -5,7 +5,7 @@
 ** commands3.c
 */
 
-#include "../includes/server.h"
+#include "../includes/myftp.h"
 
 void my_cwd(char *new_path, int clientfd)
 {
