@@ -14,14 +14,14 @@ void checkCommands(client_t client, server_t server)
         memset(server.buffer, 0, BUFSIZE);
         read(client.clientfd, server.buffer, BUFSIZE);
 
-        if (strncmp(upCase(server.buffer), "CWD", 4) == 0)
-            my_cwd(client.newPath, client.clientfd);
+        if (strncmp(upCase(server.buffer), "CWD", 3) == 0)
+            my_cwd(server.buffer, client);
         else if (strncmp(upCase(server.buffer), "CDUP", 4) == 0)
             my_cdup(client);
         else if (strncmp(upCase(server.buffer), "DELE", 4) == 0)
             my_dele(client);
         else if (strncmp(upCase(server.buffer), "LIST", 4) == 0)
-            my_list(client);
+            my_list(server.buffer, client);
         else if (strncmp(upCase(server.buffer), "PORT", 4) == 0)
             my_port(client);
         else if (strncmp(upCase(server.buffer), "PWD", 3) == 0)

@@ -29,7 +29,6 @@ client_t initClient(int port, char *path)
 
     client.mode = 1;
     client.is_root = false;
-    client.newPath = "./";
 
     return (client);
 }

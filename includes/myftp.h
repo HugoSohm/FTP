@@ -19,6 +19,7 @@
 #include <ctype.h>
 
 #define BUFSIZE 4097
+#define SIZE 4103
 
 typedef int bool;
 #define true 1
@@ -31,7 +32,9 @@ typedef int bool;
 #define MSG_221 "221 Goodbye.\n"
 #define MSG_227 "227 Entering Passive Mode (h1,h2,h3,h4,p1,p2).\n"
 #define MSG_230 "230 Login successful.\n"
+#define MSG_250 "250 Requested file action okay, completed.\n"
 #define MSG_331 "331 Please specify password.\n"
+#define MSG_425 "425 Can't open data connection.\n"
 #define MSG_500 "500 Unknown command.\n"
 #define MSG_530 "530 Please login with USER and PASS.\n"
 #define MSG_550 "550 Requested action not taken.\n"
@@ -50,7 +53,6 @@ typedef struct client_s {
     struct sockaddr_in clientSock;
     int clientSockSize;
     int clientfd;
-    char *newPath;
     bool is_root;
     int mode;
 } client_t;
@@ -61,7 +63,8 @@ void epurStr(char *str);
 char *upCase(char *str);
 void error(char *msg);
 
-void my_cwd(char *new_path, int clientfd);
+void my_list(char *pathname, client_t client);
+void my_cwd(char *buffer, client_t client);
 void my_exit(char *msg, int value);
 void my_write(int fd, char *str);
 void my_dele(client_t client);
@@ -70,7 +73,6 @@ void my_pasv(client_t client);
 void my_cdup(client_t client);
 void my_noop(client_t client);
 void my_port(client_t client);
-void my_list(client_t client);
 void my_pwd(client_t client);
 
 void checkPassword(client_t client, server_t server);

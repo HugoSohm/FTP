@@ -7,17 +7,11 @@
 
 #include "../includes/myftp.h"
 
-void my_write(int fd, char *str)
+void closeServer(client_t client, server_t server)
 {
-    if (write(fd, str, strlen(str)) == -1)
-        my_exit("Error : write", EXIT_FAILURE);
-}
-
-void my_exit(char *msg, int value)
-{
-    if (msg)
-        fprintf(stderr, "%s\n", msg);
-    exit(value);
+    write(client.clientfd, MSG_221, 13);
+    close(server.serverfd);
+    exit(0);
 }
 
 char *upCase(char *str)

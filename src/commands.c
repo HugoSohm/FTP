@@ -15,7 +15,7 @@ void my_pasv(client_t client)
 
 void my_cdup(client_t client)
 {
-    my_cwd("..", client.clientfd);
+    my_cwd("..", client);
 }
 
 void my_dele(client_t client)
