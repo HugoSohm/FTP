@@ -17,15 +17,13 @@ void my_port(client_t client)
     my_write(client.clientfd, MSG_200);
 }
 
-void my_write(int fd, char *str)
+void unknownCommand(client_t client)
 {
-    if (write(fd, str, strlen(str)) == -1)
-        my_exit("Error : write", EXIT_FAILURE);
+    my_write(client.clientfd, MSG_500);
 }
 
-void my_exit(char *msg, int value)
+void closeClient(client_t client, server_t server)
 {
-    if (msg)
-        fprintf(stderr, "%s\n", msg);
-    exit(value);
+    write(client.clientfd, MSG_221, 13);
+    exit(0);
 }

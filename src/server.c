@@ -26,7 +26,7 @@ int myftp(int port, char *path)
         perror("Error on listen");
 
     serverLoop(client, server);
-    closeServer(client, server);
+    closeClient(client, server);
 }
 
 void serverLoop(client_t client, server_t server)

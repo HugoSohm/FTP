@@ -9,7 +9,7 @@
 
 void help(void)
 {
-    printf(USAGE);
+    printf(MSG_USAGE);
 }
 
 int main(int argc, char **argv)

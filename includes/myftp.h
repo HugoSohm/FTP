@@ -25,7 +25,8 @@ typedef int bool;
 #define true 1
 #define false 0
 
-#define USAGE "USAGE: ./server port\n\tport\tis the port number on which the server socket listens\n"
+#define MSG_USAGE "USAGE: ./server port\n\tport\tis the port number on which the server socket listens\n"
+#define MSG_HELP " CDUP CWD DELE LIST NOOP PASS PASV PORT PWD QUIT RETR STOR USER\n"
 #define MSG_200 "200 Command okay.\n"
 #define MSG_214 "214 Help message.\n"
 #define MSG_220 "220 Hello\n"
@@ -60,7 +61,7 @@ typedef struct client_s {
 int main(int argc, char **argv);
 int myftp(int port, char *path);
 void epurStr(char *str);
-char *upCase(char *str);
+char *lowCase(char *str);
 void error(char *msg);
 
 void my_list(char *pathname, client_t client);
@@ -78,7 +79,7 @@ void my_pwd(client_t client);
 void checkPassword(client_t client, server_t server);
 void checkUsername(client_t client, server_t server);
 void checkCommands(client_t client, server_t server);
-void closeServer(client_t client, server_t server);
+void closeClient(client_t client, server_t server);
 void serverLoop(client_t client, server_t server);
 void unknownCommand(client_t client);
 

@@ -7,20 +7,26 @@
 
 #include "../includes/myftp.h"
 
-void closeServer(client_t client, server_t server)
+void my_write(int fd, char *str)
 {
-    write(client.clientfd, MSG_221, 13);
-    close(server.serverfd);
-    exit(0);
+    if (write(fd, str, strlen(str)) == -1)
+        my_exit("Error : write", EXIT_FAILURE);
 }
 
-char *upCase(char *str)
+void my_exit(char *msg, int value)
+{
+    if (msg)
+        fprintf(stderr, "%s\n", msg);
+    exit(value);
+}
+
+char *lowCase(char *str)
 {
     int i = 0;
 
     while (str[i]) {
-        if (str[i] >= 'a' && str[i] <= 'z')
-            str[i] = str[i] - 32;
+        if (str[i] >= 'A' && str[i] <= 'Z')
+            str[i] = str[i] + 32;
         i++;
     }
     return (str);

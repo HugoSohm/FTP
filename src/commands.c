@@ -26,7 +26,6 @@ void my_dele(client_t client)
 
 void my_help(client_t client)
 {
-    my_write(client.clientfd, " CDUP CWD DELE LIST NOOP PASS PASV PORT ");
-    my_write(client.clientfd, "PWD QUIT RETR STOR USER\n");
+    my_write(client.clientfd, MSG_HELP);
     my_write(client.clientfd, MSG_214);
 }

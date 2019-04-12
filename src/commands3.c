@@ -10,17 +10,17 @@
 void my_cwd(char *buffer, client_t client)
 {
     char path[BUFSIZE];
-    char *new_path = malloc(sizeof(char) * (strlen(buffer) + 1 - 4));
+    char *pathname = malloc(sizeof(char) * (strlen(buffer) + 1 - 4));
     int i = 0;
     int j = 1;
 
     for (; buffer[i] && buffer[i] != '\r' && buffer[i] != '\n' && buffer[i] != ' '; i++);
     
     for (;buffer[i+j]; j++)
-        new_path[j - 1] = buffer[i + j];
+        pathname[j - 1] = buffer[i + j];
 
-    sprintf(path, "%.4096s", new_path);
-    if (!new_path || chdir(path) == -1) {
+    sprintf(path, "%.4096s", pathname);
+    if (!pathname || chdir(path) == -1) {
         my_write(client.clientfd, MSG_550);
         return;
     }
@@ -29,23 +29,31 @@ void my_cwd(char *buffer, client_t client)
 
 void my_pwd(client_t client)
 {
+    char pathname[SIZE];
     char c = 34;
-    char path_pwd[BUFSIZE];
 
-    if (getcwd(path_pwd, sizeof(path_pwd)) != NULL) {
+    if (getcwd(pathname, sizeof(pathname)) != NULL) {
         my_write(client.clientfd, "257 ");
         write(client.clientfd, &c, 1);
-        my_write(client.clientfd, path_pwd);
+        my_write(client.clientfd, pathname);
         write(client.clientfd, &c, 1);
         my_write(client.clientfd, "\n");
     } else
         my_write(client.clientfd, MSG_550);
 }
 
-void my_list(char *pathname, client_t client)
+void my_list(char *buffer, client_t client)
 {
     FILE *fp;
     char path[SIZE];
+    char *pathname = malloc(sizeof(char) * (strlen(buffer) + 1 - 4));
+    int i = 0;
+    int j = 1;
+
+    for (; buffer[i] && buffer[i] != '\r' && buffer[i] != '\n' && buffer[i] != ' '; i++);
+    
+    for (;buffer[i+j]; j++)
+        pathname[j - 1] = buffer[i + j];
 
     if (client.mode == 0) {
         my_write(client.clientfd, MSG_425);
@@ -57,14 +65,9 @@ void my_list(char *pathname, client_t client)
     else
         sprintf(path, "ls -l %.4096s", pathname);
     fp = popen(path, "r");
-    
+
     while (fgets(path, BUFSIZE, fp) != NULL)
         my_write(client.clientfd, path);
     pclose(fp);
     my_write(client.clientfd, MSG_250);
-}
-
-void unknownCommand(client_t client)
-{
-    my_write(client.clientfd, MSG_500);
 }
