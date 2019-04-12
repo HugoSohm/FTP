@@ -60,6 +60,7 @@ typedef struct client_s {
 
 int main(int argc, char **argv);
 int myftp(int port, char *path);
+char *splitArg(server_t server);
 void epurStr(char *str);
 char *lowCase(char *str);
 void error(char *msg);

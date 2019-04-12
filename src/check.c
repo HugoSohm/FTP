@@ -47,13 +47,13 @@ void checkCommands(client_t client, server_t server)
         read(client.clientfd, server.buffer, BUFSIZE);
 
         if (strncmp(lowCase(server.buffer), "cwd", 3) == 0)
-            my_cwd(server.buffer, client);
+            my_cwd(splitArg(server), client);
         else if (strncmp(lowCase(server.buffer), "cdup", 4) == 0)
             my_cdup(client);
         else if (strncmp(lowCase(server.buffer), "dele", 4) == 0)
             my_dele(client);
         else if (strncmp(lowCase(server.buffer), "list", 4) == 0)
-            my_list(server.buffer, client);
+            my_list(splitArg(server), client);
         else if (strncmp(lowCase(server.buffer), "port", 4) == 0)
             my_port(client);
         else if (strncmp(lowCase(server.buffer), "pwd", 3) == 0)

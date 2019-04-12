@@ -15,6 +15,7 @@ SRCS    	=	src/server.c		\
 				src/commands.c		\
 				src/commands2.c		\
 				src/commands3.c		\
+				src/tools.c			\
 				src/main.c
 
 OBJS		=	$(SRCS:.c=.o)

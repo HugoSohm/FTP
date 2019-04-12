@@ -7,17 +7,17 @@
 
 #include "../includes/myftp.h"
 
-void my_write(int fd, char *str)
+char *splitArg(server_t server)
 {
-    if (write(fd, str, strlen(str)) == -1)
-        my_exit("Error : write", EXIT_FAILURE);
-}
+    char *pathname = malloc(sizeof(char) * (strlen(server.buffer) + 1 - 4));
+    int i = 0;
+    int j = 1;
 
-void my_exit(char *msg, int value)
-{
-    if (msg)
-        fprintf(stderr, "%s\n", msg);
-    exit(value);
+    for (; server.buffer[i] && server.buffer[i] != '\r' && server.buffer[i] != '\n' && server.buffer[i] != ' '; i++);
+    
+    for (;server.buffer[i+j]; j++)
+        pathname[j - 1] = server.buffer[i + j];
+    return (pathname);
 }
 
 char *lowCase(char *str)

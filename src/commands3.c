@@ -7,17 +7,9 @@
 
 #include "../includes/myftp.h"
 
-void my_cwd(char *buffer, client_t client)
+void my_cwd(char *pathname, client_t client)
 {
     char path[BUFSIZE];
-    char *pathname = malloc(sizeof(char) * (strlen(buffer) + 1 - 4));
-    int i = 0;
-    int j = 1;
-
-    for (; buffer[i] && buffer[i] != '\r' && buffer[i] != '\n' && buffer[i] != ' '; i++);
-    
-    for (;buffer[i+j]; j++)
-        pathname[j - 1] = buffer[i + j];
 
     sprintf(path, "%.4096s", pathname);
     if (!pathname || chdir(path) == -1) {
@@ -42,18 +34,10 @@ void my_pwd(client_t client)
         my_write(client.clientfd, MSG_550);
 }
 
-void my_list(char *buffer, client_t client)
+void my_list(char *pathname, client_t client)
 {
     FILE *fp;
     char path[SIZE];
-    char *pathname = malloc(sizeof(char) * (strlen(buffer) + 1 - 4));
-    int i = 0;
-    int j = 1;
-
-    for (; buffer[i] && buffer[i] != '\r' && buffer[i] != '\n' && buffer[i] != ' '; i++);
-    
-    for (;buffer[i+j]; j++)
-        pathname[j - 1] = buffer[i + j];
 
     if (client.mode == 0) {
         my_write(client.clientfd, MSG_425);
