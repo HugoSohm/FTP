@@ -20,13 +20,14 @@ void my_exit(char *msg, int value)
     exit(value);
 }
 
-void unknownCommand(client_t client)
+void unknownCommand(client_t *client)
 {
-    my_write(client.clientfd, MSG_500);
+    my_write(client->clientfd, MSG_500);
 }
 
-void closeClient(client_t client, server_t server)
+void closeClient(int i, client_t *client, server_t server)
 {
-    write(client.clientfd, MSG_221, 13);
-    exit(0);
+    write(client->clientfd, MSG_221, 13);
+    close(i);
+    FD_CLR(i, &server.activefds);
 }

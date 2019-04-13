@@ -37,7 +37,9 @@ typedef int bool;
 #define MSG_331 "331 Please specify password.\n"
 #define MSG_425 "425 Can't open data connection.\n"
 #define MSG_500 "500 Unknown command.\n"
+#define MSG_503 "503 Login with USER first.\n"
 #define MSG_530 "530 Please login with USER and PASS.\n"
+#define MSG_530_2 "530 Login incorrect.\n"
 #define MSG_550 "550 Requested action not taken.\n"
 
 typedef struct server_s {
@@ -46,45 +48,50 @@ typedef struct server_s {
     char buffer[BUFSIZE];
     int serverfd;
     int optval;
-    int n;
     fd_set readfds;
+    fd_set activefds;
 } server_t;
 
 typedef struct client_s {
     struct sockaddr_in clientSock;
     int clientSockSize;
     int clientfd;
-    bool is_root;
+    int isLog;
+    int isUser;
+    char *username;
     int mode;
 } client_t;
 
 int main(int argc, char **argv);
 int myftp(int port, char *path);
-char *splitArg(server_t server);
+char *splitArg(char *arg);
 void epurStr(char *str);
 char *lowCase(char *str);
 void error(char *msg);
 
-void my_list(char *pathname, client_t client);
-void my_cwd(char *buffer, client_t client);
+void my_list(char *pathname, client_t *client);
+void my_cwd(char *buffer, client_t *client);
 void my_exit(char *msg, int value);
 void my_write(int fd, char *str);
-void my_dele(client_t client);
-void my_help(client_t client);
-void my_pasv(client_t client);
-void my_cdup(client_t client);
-void my_noop(client_t client);
-void my_port(client_t client);
-void my_pwd(client_t client);
+void my_dele(client_t *client);
+void my_help(client_t *client);
+void my_pasv(client_t *client);
+void my_cdup(client_t *client);
+void my_noop(client_t *client);
+void my_port(client_t *client);
+void my_pwd(client_t *client);
 
-void checkPassword(client_t client, server_t server);
-void checkUsername(client_t client, server_t server);
-void checkCommands(client_t client, server_t server);
-void closeClient(client_t client, server_t server);
-void serverLoop(client_t client, server_t server);
-void unknownCommand(client_t client);
+void check(int i, client_t *client, server_t server);
+void checkLogin(int i, client_t *client, server_t server);
+void checkCommands(int i, client_t *client, server_t server);
+void checkUsername(char *username, client_t *client);
+void checkPassword(char *password, client_t *client);
+
+void closeClient(int i, client_t *client, server_t server);
+void serverLoop(client_t *client, server_t server);
+void unknownCommand(client_t *client);
 
 server_t initServer();
-client_t initClient();
+client_t *initClient();
 
 #endif

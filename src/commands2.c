@@ -7,12 +7,12 @@
 
 #include "../includes/myftp.h"
 
-void my_noop(client_t client)
+void my_noop(client_t *client)
 {
-    my_write(client.clientfd, MSG_200);
+    my_write(client->clientfd, MSG_200);
 }
 
-void my_port(client_t client)
+void my_port(client_t *client)
 {
-    my_write(client.clientfd, MSG_200);
+    my_write(client->clientfd, MSG_200);
 }

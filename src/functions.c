@@ -7,16 +7,16 @@
 
 #include "../includes/myftp.h"
 
-char *splitArg(server_t server)
+char *splitArg(char *arg)
 {
-    char *pathname = malloc(sizeof(char) * (strlen(server.buffer) + 1 - 4));
+    char *pathname = malloc(sizeof(char) * (strlen(arg) + 1 - 4));
     int i = 0;
     int j = 1;
 
-    for (; server.buffer[i] && server.buffer[i] != '\r' && server.buffer[i] != '\n' && server.buffer[i] != ' '; i++);
+    for (; arg[i] && arg[i] != '\r' && arg[i] != '\n' && arg[i] != ' '; i++);
     
-    for (;server.buffer[i+j]; j++)
-        pathname[j - 1] = server.buffer[i + j];
+    for (;arg[i+j]; j++)
+        pathname[j - 1] = arg[i + j];
     return (pathname);
 }
 

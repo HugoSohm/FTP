@@ -20,15 +20,14 @@ server_t initServer(int port, char *path)
     return (server);
 }
 
-client_t initClient(int port, char *path)
+client_t *initClient(int port, char *path)
 {
-    client_t client;
+    client_t *client = malloc(sizeof(client_t));
+    client->clientSockSize = sizeof(client->clientSock);
+    client->clientSockSize = sizeof(client->clientSock);
 
-    client.clientSockSize = sizeof(client.clientSock);
-    client.clientSockSize = sizeof(client.clientSock);
-
-    client.mode = 1;
-    client.is_root = false;
+    client->mode = 1;
+    client->isLog = 0;
 
     return (client);
 }

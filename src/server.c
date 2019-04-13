@@ -10,7 +10,7 @@
 int myftp(int port, char *path)
 {
     server_t server = initServer(port, path);
-    client_t client = initClient(port, path);
+    client_t *client = initClient(port, path);
 
     if (server.serverfd < 0)
         perror("ERROR opening socket");
@@ -22,43 +22,39 @@ int myftp(int port, char *path)
     sizeof(server.serverSock)) == -1)
         perror("Error on binding");
 
-    if (listen(server.serverfd, 10) == -1)
+    if (listen(server.serverfd, 1) < 0)
         perror("Error on listen");
 
     serverLoop(client, server);
-    closeClient(client, server);
 }
 
-void serverLoop(client_t client, server_t server)
+void serverLoop(client_t *client, server_t server)
 {
-    while (42) {
-        FD_ZERO(&server.readfds);
-        FD_SET(server.serverfd, &server.readfds);
-        FD_SET(0, &server.readfds);
+    int i = 0;
 
-        if (select(server.serverfd + 1, &server.readfds, NULL, NULL, NULL)
-            == -1)
+    FD_ZERO(&server.activefds);
+    FD_SET(server.serverfd, &server.activefds);
+
+    while (42) {
+        server.readfds = server.activefds;
+
+        if (select(FD_SETSIZE, &server.readfds, NULL, NULL, NULL) < 0)
             perror("Error in select");
 
-        if (FD_ISSET(0, &server.readfds))
-            printf("Writing in server\n");
+        for (i = 0; i < FD_SETSIZE; ++i) {
+            if (FD_ISSET(i, &server.readfds)) {
+                if (i == server.serverfd) {
+                    client->clientfd = accept(server.serverfd, (struct sockaddr *)&client->clientSock, (socklen_t*)&client->clientSockSize);
 
-        if (FD_ISSET(server.serverfd, &server.readfds)) {
-            client.clientfd = accept(server.serverfd, (struct sockaddr *)
-            &client.clientSock, (socklen_t*)&client.clientSockSize);
-
-            if (inet_ntop(AF_INET, &client.clientSock.sin_addr.s_addr,
-            server.infoConnect, sizeof(server.infoConnect)) != NULL)
-                printf("Connection from %s:%d\n", server.infoConnect,
-                ntohs(client.clientSock.sin_port));
-            my_write(client.clientfd, MSG_220);
-
-            if (client.clientfd == -1)
-                perror("Error on accept");
-
-            checkUsername(client, server);
-            checkPassword(client, server);
-            checkCommands(client, server);
+                    if (client->clientfd < 0)
+                        perror("Error in accept");
+                    fprintf(stderr, "Server: connect from host %s, port %hd.\n", inet_ntoa(client->clientSock.sin_addr), ntohs(client->clientSock.sin_port));
+                    my_write(client->clientfd, MSG_220);
+                    FD_SET(client->clientfd, &server.activefds);
+                } else {
+                    check(i, client, server);
+                }
+            }
         }
     }
 }
