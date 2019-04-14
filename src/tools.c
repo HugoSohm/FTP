@@ -25,9 +25,9 @@ void unknownCommand(client_t *client)
     my_write(client->clientfd, MSG_500);
 }
 
-void closeClient(int i, client_t *client, server_t server)
+void closeClient(int i, client_t *client, server_t *server)
 {
     write(client->clientfd, MSG_221, 13);
     close(i);
-    FD_CLR(i, &server.activefds);
+    FD_CLR(i, &server->activefds);
 }

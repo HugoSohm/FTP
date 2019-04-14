@@ -14,7 +14,7 @@ char *splitArg(char *arg)
     int j = 1;
 
     for (; arg[i] && arg[i] != '\r' && arg[i] != '\n' && arg[i] != ' '; i++);
-    
+
     for (;arg[i+j]; j++)
         pathname[j - 1] = arg[i + j];
     return (pathname);

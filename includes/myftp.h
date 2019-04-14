@@ -25,7 +25,7 @@ typedef int bool;
 #define true 1
 #define false 0
 
-#define MSG_USAGE "USAGE: ./server port\n\tport\tis the port number on which the server socket listens\n"
+#define HELP "USAGE: ./server port\n\tport\tis the port number on which the server socket listens\n\tpath\tis the path to the home directory for the Anonymous user\n"
 #define MSG_HELP " CDUP CWD DELE LIST NOOP PASS PASV PORT PWD QUIT RETR STOR USER\n"
 #define MSG_200 "200 Command okay.\n"
 #define MSG_214 "214 Help message.\n"
@@ -81,17 +81,17 @@ void my_noop(client_t *client);
 void my_port(client_t *client);
 void my_pwd(client_t *client);
 
-void check(int i, client_t *client, server_t server);
-void checkLogin(int i, client_t *client, server_t server);
-void checkCommands(int i, client_t *client, server_t server);
+void check(int i, client_t *client, server_t *server);
+void checkLogin(int i, client_t *client, server_t *server);
+void checkCommands(int i, client_t *client, server_t *server);
 void checkUsername(char *username, client_t *client);
 void checkPassword(char *password, client_t *client);
 
-void closeClient(int i, client_t *client, server_t server);
-void serverLoop(client_t *client, server_t server);
+void closeClient(int i, client_t *client, server_t *server);
+void serverLoop(client_t *client, server_t *server);
 void unknownCommand(client_t *client);
 
-server_t initServer();
+server_t *initServer();
 client_t *initClient();
 
 #endif
