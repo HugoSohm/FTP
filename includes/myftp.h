@@ -71,6 +71,7 @@ void error(char *msg);
 
 void my_list(char *pathname, client_t *client);
 void my_cwd(char *buffer, client_t *client);
+void my_cd(char *pathname, client_t *client);
 void my_exit(char *msg, int value);
 void my_write(int fd, char *str);
 void my_dele(client_t *client);
