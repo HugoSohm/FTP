@@ -33,14 +33,14 @@ typedef int bool;
 #define MSG_221 "221 Goodbye.\n"
 #define MSG_227 "227 Entering Passive Mode (h1,h2,h3,h4,p1,p2).\n"
 #define MSG_230 "230 Login successful.\n"
-#define MSG_250 "250 Requested file action okay, completed.\n"
+#define MSG_250 "250 Directory successfully changed.\n"
 #define MSG_331 "331 Please specify password.\n"
 #define MSG_425 "425 Can't open data connection.\n"
 #define MSG_500 "500 Unknown command.\n"
 #define MSG_503 "503 Login with USER first.\n"
 #define MSG_530 "530 Please login with USER and PASS.\n"
 #define MSG_530_2 "530 Login incorrect.\n"
-#define MSG_550 "550 Requested action not taken.\n"
+#define MSG_550 "550 Failed to change directory.\n"
 
 typedef struct server_s {
     struct sockaddr_in serverSock;

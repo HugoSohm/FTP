@@ -48,7 +48,7 @@ void serverLoop(client_t *client, server_t *server)
 
                     if (client->clientfd < 0)
                         perror("Error in accept");
-                    fprintf(stderr, "Server: connect from host %s, port %d.\n",
+                    fprintf(stderr, "New user connected from host %s, port %d.\n",
                     inet_ntoa(client->clientSock.sin_addr),
                     ntohs(client->clientSock.sin_port));
                     my_write(client->clientfd, MSG_220);
