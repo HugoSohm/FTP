@@ -7,7 +7,7 @@
 
 #include "../includes/myftp.h"
 
-char *splitArg(char *arg)
+char *split_arg(char *arg)
 {
     char *pathname = malloc(sizeof(char) * (strlen(arg) + 1 - 4));
     int i = 0;
@@ -20,7 +20,7 @@ char *splitArg(char *arg)
     return (pathname);
 }
 
-char *lowCase(char *str)
+char *low_case(char *str)
 {
     int i = 0;
 
@@ -32,7 +32,7 @@ char *lowCase(char *str)
     return (str);
 }
 
-void epurStr(char *str)
+void epur_str(char *str)
 {
     int i = 0;
     int j = 0;

@@ -9,8 +9,8 @@
 
 int myftp(int port, char *path)
 {
-    server_t *server = initServer(port, path);
-    client_t *client = initClient(port, path);
+    server_t *server = init_server(port, path);
+    client_t *client = init_client(port, path);
 
     if (server->serverfd < 0)
         perror("ERROR opening socket");
@@ -25,10 +25,10 @@ int myftp(int port, char *path)
     if (listen(server->serverfd, 1) < 0)
         perror("Error on listen");
 
-    serverLoop(client, server);
+    server_loop(client, server);
 }
 
-void serverLoop(client_t *client, server_t *server)
+void server_loop(client_t *client, server_t *server)
 {
     FD_ZERO(&server->activefds);
     FD_SET(server->serverfd, &server->activefds);
@@ -48,7 +48,7 @@ void serverLoop(client_t *client, server_t *server)
 
                     if (client->clientfd < 0)
                         perror("Error in accept");
-                    fprintf(stderr, "New user connected from host %s, port %d.\n",
+                    fprintf(stderr, MSG_NEWUSER,
                     inet_ntoa(client->clientSock.sin_addr),
                     ntohs(client->clientSock.sin_port));
                     my_write(client->clientfd, MSG_220);

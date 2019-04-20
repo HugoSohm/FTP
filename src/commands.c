@@ -25,6 +25,6 @@ void my_dele(client_t *client)
 
 void my_help(client_t *client)
 {
-    my_write(client->clientfd, MSG_HELP);
+    my_write(client->clientfd, MSGH);
     my_write(client->clientfd, MSG_214);
 }

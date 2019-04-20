@@ -7,7 +7,7 @@
 
 #include "../includes/myftp.h"
 
-server_t *initServer(int port, char *path)
+server_t *init_server(int port, char *path)
 {
     server_t *server = malloc(sizeof(server_t));
 
@@ -20,7 +20,7 @@ server_t *initServer(int port, char *path)
     return (server);
 }
 
-client_t *initClient(int port, char *path)
+client_t *init_client(int port, char *path)
 {
     client_t *client = malloc(sizeof(client_t));
     client->clientSockSize = sizeof(client->clientSock);

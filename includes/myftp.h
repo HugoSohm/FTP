@@ -25,8 +25,11 @@ typedef int bool;
 #define true 1
 #define false 0
 
-#define HELP "USAGE: ./server port\n\tport\tis the port number on which the server socket listens\n\tpath\tis the path to the home directory for the Anonymous user\n"
-#define MSG_HELP " CDUP CWD DELE LIST NOOP PASS PASV PORT PWD QUIT RETR STOR USER\n"
+#define H1 "USAGE: ./server port\n"
+#define H2 "\tport\tis the port number on which the server socket listens\n"
+#define H3 "\tpath\tis the path to the home directory for the Anonymous user\n"
+#define MSG_NEWUSER "New user connected from host %s, port %d.\n"
+#define MSGH " CDUP CWD DELE LIST NOOP PASS PASV PORT PWD QUIT RETR STOR USER\n"
 #define MSG_200 "200 Command okay.\n"
 #define MSG_214 "214 Help message.\n"
 #define MSG_220 "220 Hello\n"
@@ -64,9 +67,9 @@ typedef struct client_s {
 
 int main(int argc, char **argv);
 int myftp(int port, char *path);
-char *splitArg(char *arg);
-void epurStr(char *str);
-char *lowCase(char *str);
+char *split_arg(char *arg);
+void epur_str(char *str);
+char *low_case(char *str);
 void error(char *msg);
 
 void my_list(char *pathname, client_t *client);
@@ -83,16 +86,16 @@ void my_port(client_t *client);
 void my_pwd(client_t *client);
 
 void check(int i, client_t *client, server_t *server);
-void checkLogin(int i, client_t *client, server_t *server);
-void checkCommands(int i, client_t *client, server_t *server);
-void checkUsername(char *username, client_t *client);
-void checkPassword(char *password, client_t *client);
+void check_login(int i, client_t *client, server_t *server);
+void check_commands(int i, client_t *client, server_t *server);
+void check_username(char *username, client_t *client);
+void check_password(char *password, client_t *client);
 
-void closeClient(int i, client_t *client, server_t *server);
-void serverLoop(client_t *client, server_t *server);
-void unknownCommand(client_t *client);
+void close_client(int i, client_t *client, server_t *server);
+void server_loop(client_t *client, server_t *server);
+void unknown_command(client_t *client);
 
-server_t *initServer();
-client_t *initClient();
+server_t *init_server();
+client_t *init_client();
 
 #endif

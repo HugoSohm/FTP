@@ -20,12 +20,12 @@ void my_exit(char *msg, int value)
     exit(value);
 }
 
-void unknownCommand(client_t *client)
+void unknown_command(client_t *client)
 {
     my_write(client->clientfd, MSG_500);
 }
 
-void closeClient(int i, client_t *client, server_t *server)
+void close_client(int i, client_t *client, server_t *server)
 {
     write(client->clientfd, MSG_221, 13);
     close(i);

@@ -9,7 +9,9 @@
 
 void help(void)
 {
-    printf(HELP);
+    printf(H1);
+    printf(H2);
+    printf(H3);
 }
 
 int main(int argc, char **argv)
