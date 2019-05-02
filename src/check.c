@@ -54,7 +54,7 @@ void check_login(int i, client_t *client, server_t *server)
 
 void check_commands(int i, client_t *client, server_t *server)
 {
-    if (strncmp(low_case(server->buffer), "cwd", 3) == 0)
+    if (strncmp(server->buffer, "cwd", 3) == 0)
         my_cwd(remove_less(split_arg(server->buffer)), client);
     else if (strncmp(low_case(server->buffer), "list", 4) == 0)
         my_list(split_arg(server->buffer), client);
