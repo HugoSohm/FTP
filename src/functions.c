@@ -5,7 +5,7 @@
 ** functions.c
 */
 
-#include "../includes/myftp.h"
+#include "myftp.h"
 
 char *split_arg(char *arg)
 {
@@ -32,26 +32,12 @@ char *low_case(char *str)
     return (str);
 }
 
-void epur_str(char *str)
+char *remove_less(char *str)
 {
     int i = 0;
-    int j = 0;
 
-    while (str[i] == ' ' || str[i] == '\t')
+    while (str[i] != '\r' && str[i] != '\n' && str[i] != '\0')
         i++;
-
-    while (str[i]) {
-        if (str[i] != ' ' && str[i] != '\t')
-            str[j++] = str[i++];
-        else {
-            str[j++] = ' ';
-
-            while (str[i] == ' ' || str[i] == '\t')
-                i++;
-        }
-        str[j] = 0;
-
-        if (str[j - 1] == ' ')
-            str[j - 1] = '\0';
-    }
+    str[i] = '\0';
+    return (str);
 }

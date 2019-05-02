@@ -44,7 +44,7 @@ void server_loop(client_t *client, server_t *server)
                 if (i == server->serverfd) {
                     client->clientfd = accept(server->serverfd,
                     (struct sockaddr *)&client->clientSock, (socklen_t *)
-                    &client->clientSockSize);
+                    &client->clientsock_size);
 
                     if (client->clientfd < 0)
                         perror("Error in accept");

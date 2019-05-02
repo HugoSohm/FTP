@@ -5,7 +5,7 @@
 ** init.c
 */
 
-#include "../includes/myftp.h"
+#include "myftp.h"
 
 server_t *init_server(int port, char *path)
 {
@@ -23,11 +23,10 @@ server_t *init_server(int port, char *path)
 client_t *init_client(int port, char *path)
 {
     client_t *client = malloc(sizeof(client_t));
-    client->clientSockSize = sizeof(client->clientSock);
 
-    client->mode = 1;
-    client->isLog = 0;
-    client->isUser = 0;
+    client->clientsock_size = sizeof(client->clientSock);
+    client->is_log = 0;
+    client->is_user = 0;
 
     return (client);
 }

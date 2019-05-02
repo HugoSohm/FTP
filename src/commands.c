@@ -5,11 +5,10 @@
 ** commands.c
 */
 
-#include "../includes/myftp.h"
+#include "myftp.h"
 
 void my_pasv(client_t *client)
 {
-    client->mode = 1;
     my_write(client->clientfd, MSG_227);
 }
 

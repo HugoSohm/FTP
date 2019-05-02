@@ -57,10 +57,10 @@ typedef struct server_s {
 
 typedef struct client_s {
     struct sockaddr_in clientSock;
-    int clientSockSize;
+    int clientsock_size;
     int clientfd;
-    int isLog;
-    int isUser;
+    int is_log;
+    int is_user;
     char *username;
     int mode;
 } client_t;
@@ -68,7 +68,7 @@ typedef struct client_s {
 int main(int argc, char **argv);
 int myftp(int port, char *path);
 char *split_arg(char *arg);
-void epur_str(char *str);
+char *remove_less(char *str);
 char *low_case(char *str);
 void error(char *msg);
 

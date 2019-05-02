@@ -5,7 +5,7 @@
 ** check.c
 */
 
-#include "../includes/myftp.h"
+#include "myftp.h"
 
 void check(int i, client_t *client, server_t *server)
 {
@@ -13,29 +13,29 @@ void check(int i, client_t *client, server_t *server)
     memset(server->buffer, 0, BUFSIZE);
     read(client->clientfd, server->buffer, BUFSIZE);
 
-    if (client->isLog == 0)
+    if (client->is_log == 0)
         check_login(i, client, server);
-    else if (client->isLog == 1)
+    else if (client->is_log == 1)
         check_commands(i, client, server);
 }
 
 void check_username(char *username, client_t *client)
 {
     if (strncmp(username, "anonymous", 9) == 0)
-        client->isUser = 2;
+        client->is_user = 2;
     else
-        client->isUser = 1;
+        client->is_user = 1;
     write(client->clientfd, MSG_331, 29);
 }
 
 void check_password(char *password, client_t *client)
 {
-    if (client->isUser == 1) {
+    if (client->is_user == 1) {
         write(client->clientfd, MSG_530_2, 21);
-        client->isUser = 0;
-    } else if (client->isUser == 2) {
+        client->is_user = 0;
+    } else if (client->is_user == 2) {
         write(client->clientfd, MSG_230, 22);
-        client->isLog = 1;
+        client->is_log = 1;
     } else
         write(client->clientfd, MSG_503, 27);
 }
@@ -55,7 +55,7 @@ void check_login(int i, client_t *client, server_t *server)
 void check_commands(int i, client_t *client, server_t *server)
 {
     if (strncmp(low_case(server->buffer), "cwd", 3) == 0)
-        my_cwd(split_arg(server->buffer), client);
+        my_cwd(remove_less(split_arg(server->buffer)), client);
     else if (strncmp(low_case(server->buffer), "list", 4) == 0)
         my_list(split_arg(server->buffer), client);
     else if (strncmp(low_case(server->buffer), "cdup", 4) == 0)

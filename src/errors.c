@@ -5,7 +5,7 @@
 ** errors.c
 */
 
-#include "../includes/myftp.h"
+#include "myftp.h"
 
 void error(char *msg)
 {

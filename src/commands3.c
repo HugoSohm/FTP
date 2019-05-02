@@ -5,7 +5,7 @@
 ** commands3.c
 */
 
-#include "../includes/myftp.h"
+#include "myftp.h"
 
 void my_cwd(char *pathname, client_t *client)
 {
@@ -38,11 +38,6 @@ void my_list(char *pathname, client_t *client)
 {
     FILE *fp;
     char path[SIZE];
-
-    if (client->mode == 0) {
-        my_write(client->clientfd, MSG_425);
-        return;
-    }
 
     if (!pathname)
         sprintf(path, "ls -l .");

@@ -5,7 +5,7 @@
 ** tools.c
 */
 
-#include "../includes/myftp.h"
+#include "myftp.h"
 
 void my_write(int fd, char *str)
 {
