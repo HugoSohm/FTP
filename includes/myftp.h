@@ -67,14 +67,11 @@ typedef struct client_s {
 
 int main(int argc, char **argv);
 int myftp(int port, char *path);
-char *split_arg(char *arg);
 char *remove_less(char *str);
+char *split_arg(char *arg);
 char *low_case(char *str);
-void error(char *msg);
 
-void my_list(char *pathname, client_t *client);
 void my_cwd(char *buffer, client_t *client);
-void my_cd(char *pathname, client_t *client);
 void my_exit(char *msg, int value);
 void my_write(int fd, char *str);
 void my_dele(client_t *client);
@@ -86,8 +83,8 @@ void my_port(client_t *client);
 void my_pwd(client_t *client);
 
 void check(int i, client_t *client, server_t *server);
-void check_login(int i, client_t *client, server_t *server);
 void check_commands(int i, client_t *client, server_t *server);
+void check_login(int i, client_t *client, server_t *server);
 void check_username(char *username, client_t *client);
 void check_password(char *password, client_t *client);
 

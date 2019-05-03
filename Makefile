@@ -8,7 +8,6 @@
 NAME		=	myftp
 
 SRCS    	=	src/server.c		\
-				src/errors.c		\
 				src/functions.c		\
 				src/init.c			\
 				src/check.c			\

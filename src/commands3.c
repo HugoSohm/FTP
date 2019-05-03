@@ -33,20 +33,3 @@ void my_pwd(client_t *client)
     } else
         my_write(client->clientfd, MSG_550);
 }
-
-void my_list(char *pathname, client_t *client)
-{
-    FILE *fp;
-    char path[SIZE];
-
-    if (!pathname)
-        sprintf(path, "ls -l .");
-    else
-        sprintf(path, "ls -l %.4096s", pathname);
-    fp = popen(path, "r");
-
-    while (fgets(path, BUFSIZE, fp) != NULL)
-        my_write(client->clientfd, path);
-    pclose(fp);
-    my_write(client->clientfd, MSG_250);
-}

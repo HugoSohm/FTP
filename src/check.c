@@ -25,7 +25,7 @@ void check_username(char *username, client_t *client)
         client->is_user = 2;
     else
         client->is_user = 1;
-    write(client->clientfd, MSG_331, 29);
+    my_write(client->clientfd, MSG_331);
 }
 
 void check_password(char *password, client_t *client)
@@ -37,7 +37,7 @@ void check_password(char *password, client_t *client)
         write(client->clientfd, MSG_230, 22);
         client->is_log = 1;
     } else
-        write(client->clientfd, MSG_503, 27);
+        my_write(client->clientfd, MSG_503);
 }
 
 void check_login(int i, client_t *client, server_t *server)
@@ -49,15 +49,13 @@ void check_login(int i, client_t *client, server_t *server)
     else if (strncmp(low_case(server->buffer), "quit", 4) == 0)
         close_client(i, client, server);
     else
-        write(client->clientfd, MSG_530, 37);
+        my_write(client->clientfd, MSG_530);
 }
 
 void check_commands(int i, client_t *client, server_t *server)
 {
-    if (strncmp(server->buffer, "cwd", 3) == 0)
+    if (strncmp(server->buffer, "CWD", 3) == 0)
         my_cwd(remove_less(split_arg(server->buffer)), client);
-    else if (strncmp(low_case(server->buffer), "list", 4) == 0)
-        my_list(split_arg(server->buffer), client);
     else if (strncmp(low_case(server->buffer), "cdup", 4) == 0)
         my_cdup(client);
     else if (strncmp(low_case(server->buffer), "dele", 4) == 0)
