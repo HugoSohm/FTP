@@ -1,5 +1,7 @@
 <div align="center"><h1>FTP - Epitech 2019</h1>
 
+[![Build Status](https://travis-ci.org/HugoSohm/FTP.svg?branch=master)](https://travis-ci.org/HugoSohm/FTP)
+
 Le FTP est un projet de programmation réseau en C de 2 semaines
 
 </div>
